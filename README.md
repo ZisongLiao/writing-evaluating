@@ -1,3 +1,1 @@
-Writing evaluating \n
-Zisong Liao \n
-1198245
+Writing evaluating  Zisong Liao 1198245
