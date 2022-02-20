@@ -10,6 +10,7 @@ from gensim.models import Word2Vec
 import tensorflow as tf
 
 tokenizer = BertWordPieceTokenizer("f:/evaluating/input/train.txt", lowercase=True, add_special_tokens=False)
+PATH = D:\Study\writing-evaluating
 
 def preprocess(text):
     stop_words = set(stopwords.words('english'))
@@ -133,8 +134,9 @@ class TFBertForMultilabelClassification(TFBertPreTrainedModel):
         logits = self.classifier(pooled_output)
         return logits
 
-
-model = TFBertForMultilabelClassification.from_pretrained('bert-based-uncased', num_labels=6)
+    
+config = BertConfig.from_json_file(os.path.join(PATH, "config.json"))
+model = TFBertForMultilabelClassification.from_pretrained('bert-based-uncased', config=config)
 optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate, epsilon=1e-08, clipnorm=1)
 loss = tf.keras.losses.BinaryCrossentropy()
 metric = tf.keras.metrics.CategoricalAccuracy()
