@@ -119,6 +119,7 @@ class TFBertForMultilabelClassification(TFBertPreTrainedModel):
         super(TFBertForMultilabelClassification, self).__init__(config, *inputs, **kwargs)
         self.num_labels = config.num_labels
         self.bert = TFBertMainLayer(config, name='bert')
+        self.pooling = tf.keras.layers.MaxPooling1D(pool_size=config.max_length)
         self.dropout = tf.keras.layers.Dropout(config.hidden_dropout_prob)
         self.classifier = tf.keras.layers.Dense(config.num_labels,
                                                 kernel_initializer=get_initializer(config.initializer_range),
@@ -127,11 +128,10 @@ class TFBertForMultilabelClassification(TFBertPreTrainedModel):
 
     def call(self, inputs, **kwargs):
         outputs = self.bert(inputs, **kwargs)
-        pooled_output = outputs[1]
+        pooled_output = self.popoling(outputs[0])
         pooled_output = self.dropout(pooled_output, training=kwargs.get('training', False))
         logits = self.classifier(pooled_output)
-        outputs = (logits,) + outputs[2:]
-        return outputs
+        return logits
 
 
 model = TFBertForMultilabelClassification.from_pretrained('bert-based-uncased', num_labels=6)
