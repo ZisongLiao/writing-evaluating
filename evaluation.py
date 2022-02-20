@@ -134,7 +134,7 @@ class TFBertForMultilabelClassification(TFBertPreTrainedModel):
         return outputs
 
 
-model = TFBertForMultilabelClassification.from_pretrained(model_path, num_labels=6)
+model = TFBertForMultilabelClassification.from_pretrained('bert-based-uncased', num_labels=6)
 optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate, epsilon=1e-08, clipnorm=1)
 loss = tf.keras.losses.BinaryCrossentropy()
 metric = tf.keras.metrics.CategoricalAccuracy()
