@@ -123,7 +123,7 @@ class TFBertForMultilabelClassification(TFBertPreTrainedModel):
         self.classifier = tf.keras.layers.Dense(config.num_labels,
                                                 kernel_initializer=get_initializer(config.initializer_range),
                                                 name='classifier',
-                                                activation='sigmoid')
+                                                activation='softmax')
 
     def call(self, inputs, **kwargs):
         outputs = self.bert(inputs, **kwargs)
