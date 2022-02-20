@@ -1,4 +1,5 @@
 from transformers import TFBertPreTrainedModel, TFBertMainLayer
+from tokenizers import BertWordPieceTokenizer
 import keras
 import numpy as np
 import pandas as pd
@@ -6,6 +7,8 @@ from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 from gensim.models import Word2Vec
 import tensorflow as tf
+
+tokenizer = BertWordPieceTokenizer("f:/evaluating/input/train.txt", lowercase=True, add_special_tokens=False)
 
 def preprocess(text):
     stop_words = set(stopwords.words('english'))
