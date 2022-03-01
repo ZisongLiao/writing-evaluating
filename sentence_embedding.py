@@ -129,4 +129,5 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer='adam', metrics=
 model.summary()
 
 model.fit(train_x, train_y, batch_size=3000, epochs=5, validation_data=(validation_x, validation_y))
-
+path = 'D:\Study\kaggle\writing-evaluating\writing-evaluating\lstm_model.h5'
+model.save(path)
